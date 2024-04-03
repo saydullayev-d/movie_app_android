@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movies_app/auth/presentation/screens/auth_screen.dart';
 import 'package:movies_app/core/presentation/pages/main_page.dart';
 import 'package:movies_app/movies/presentation/views/movie_details_view.dart';
 import 'package:movies_app/movies/presentation/views/movies_view.dart';
@@ -24,10 +25,11 @@ const String popularTVShowsPath = 'popularTVShows';
 const String topRatedTVShowsPath = 'topRatedTVShows';
 const String searchPath = '/search';
 const String watchlistPath = '/watchlist';
+const String authPath = '/auth';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: moviesPath,
+    initialLocation: authPath,
     routes: [
       ShellRoute(
         builder: (context, state, child) => MainPage(child: child),
@@ -101,6 +103,12 @@ class AppRouter {
             path: searchPath,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: SearchView(),
+            ),
+          ),
+          GoRoute(
+            path: authPath,
+            pageBuilder: (context, state) => CupertinoPage(
+              child: AuthScreen(), // Замените на ваш экран авторизации
             ),
           ),
           GoRoute(
