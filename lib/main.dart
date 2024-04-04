@@ -7,16 +7,27 @@ import 'package:movies_app/core/services/service_locator.dart';
 import 'package:movies_app/core/resources/app_strings.dart';
 import 'package:movies_app/core/resources/app_theme.dart';
 import 'package:movies_app/watchlist/presentation/controllers/watchlist_bloc/watchlist_bloc.dart';
+import 'package:movies_app/auth/presentation/blocs/auth_bloc.dart';
 
 void main() async {
+  // Инициализация Hive и регистрация адаптера
   await Hive.initFlutter();
   Hive.registerAdapter(MediaAdapter());
+
+  // Открытие Box для сохранения данных
   await Hive.openBox('items');
+
+  // Инициализация Service Locator
   ServiceLocator.init();
 
+  // Запуск приложения с BlocProvider для WatchlistBloc и AuthBloc
   runApp(
-    BlocProvider(
-      create: (context) => sl<WatchlistBloc>(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
@@ -28,7 +39,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      
       debugShowCheckedModeBanner: false,
       title: AppStrings.appTitle,
       theme: getApplicationTheme(),

@@ -19,6 +19,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  void showAuthScreen(BuildContext context) {
+    Navigator.of(context).pushNamed('/auth');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +66,12 @@ class _MainPageState extends State<MainPage> {
               size: AppSize.s20,
             ),
           ),
+          BottomNavigationBarItem(
+              label: AppStrings.account,
+              icon: Icon(
+                Icons.account_circle_rounded,
+                size: AppSize.s20,
+              ))
         ],
         currentIndex: _getSelectedIndex(context),
         onTap: (index) => _onItemTapped(index, context),
@@ -83,6 +93,9 @@ class _MainPageState extends State<MainPage> {
     if (location.startsWith(watchlistPath)) {
       return 3;
     }
+    if (location.startsWith(authPath)) {
+      return 4;
+    }
     return 0;
   }
 
@@ -99,6 +112,9 @@ class _MainPageState extends State<MainPage> {
         break;
       case 3:
         context.goNamed(AppRoutes.watchlistRoute);
+        break;
+      case 4:
+        context.goNamed(AppRoutes.authPath);
         break;
     }
   }

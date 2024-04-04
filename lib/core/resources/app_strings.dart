@@ -34,4 +34,5 @@ class AppStrings {
   static const String errorMessage = 'Что-то пошло не так';
   static const String tryAgain = 'попробуйте ещё раз';
   static const String noResults = 'Нет результатов';
+  static const String account = 'Профиль';
 }

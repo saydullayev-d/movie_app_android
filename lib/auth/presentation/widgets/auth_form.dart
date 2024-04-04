@@ -25,7 +25,8 @@ class AuthForm extends StatelessWidget {
             // Кнопка для входа
             ElevatedButton(
               onPressed: () {
-                // Добавить обработчик для входа
+                // Диспетчеризируйте событие входа пользователя
+                BlocProvider.of<AuthBloc>(context).add(AuthEvent.login);
               },
               child: Text('Войти'),
             ),

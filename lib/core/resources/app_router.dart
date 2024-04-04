@@ -1,3 +1,5 @@
+// core/resources/app_router.dart
+
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/auth/presentation/screens/auth_screen.dart';
@@ -29,7 +31,7 @@ const String authPath = '/auth';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: authPath,
+    initialLocation: moviesPath,
     routes: [
       ShellRoute(
         builder: (context, state, child) => MainPage(child: child),
@@ -105,12 +107,14 @@ class AppRouter {
               child: SearchView(),
             ),
           ),
-          GoRoute(
-            path: authPath,
-            pageBuilder: (context, state) => CupertinoPage(
-              child: AuthScreen(), // Замените на ваш экран авторизации
+            GoRoute(
+              name: AppRoutes.authPath,
+              path: authPath,
+              pageBuilder: (context, state) => CupertinoPage(
+                child: AuthScreen(), // Замените на ваш экран авторизации
+              ),
             ),
-          ),
+
           GoRoute(
             name: AppRoutes.watchlistRoute,
             path: watchlistPath,
@@ -121,5 +125,8 @@ class AppRouter {
         ],
       )
     ],
+    
   );
+
+  
 }
